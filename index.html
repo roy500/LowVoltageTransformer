@@ -242,6 +242,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
   <!-- Settings View -->
   <div id="view-settings" class="view">
     <div class="page-header">
+      <div class="back-btn" onclick="showView('home')"><i class="fa-solid fa-arrow-left"></i></div>
       <div class="page-title">Settings</div>
     </div>
     <div class="list-item" onclick="showView('power-log')">
@@ -322,10 +323,6 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
 
 <!-- Bottom Navigation -->
 <div class="bottom-nav">
-  <div class="nav-item active" id="nav-home">
-    <i class="fa-solid fa-house"></i>
-    <span>Home</span>
-  </div>
   <div class="nav-item" id="nav-global">
     <i class="fa-solid fa-sliders"></i>
     <span>Control All</span>
@@ -430,7 +427,6 @@ const cancelBtn=document.getElementById('cancel')
 const globalPanel=document.getElementById('global-panel')
 const globalBackdrop=document.getElementById('global-backdrop')
 const closeGlobal=document.getElementById('close-global')
-const navHome=document.getElementById('nav-home')
 const navGlobal=document.getElementById('nav-global')
 const navSettings=document.getElementById('nav-settings')
 const logBody=document.getElementById('log-body')
@@ -444,14 +440,17 @@ function showView(viewId){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+viewId).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const targetNavId = (viewId==='home') ? 'home' : (viewId==='power-log' ? 'settings' : viewId);
-  const nav=document.getElementById('nav-'+targetNavId);
+  const nav=document.getElementById('nav-'+(viewId==='power-log'?'settings':viewId));
   if(nav)nav.classList.add('active');
-
-  // Keep bottom nav always visible
+  
+  // Hide bottom nav on settings and power-log views
   const bottomNav = document.querySelector('.bottom-nav');
-  bottomNav.style.display = 'flex';
-
+  if (viewId === 'settings' || viewId === 'power-log') {
+    bottomNav.style.display = 'none';
+  } else {
+    bottomNav.style.display = 'flex';
+  }
+  
   if(viewId==='power-log')renderLogs();
 }
 
@@ -555,16 +554,7 @@ if(mode==='auto-on-close'){s.closeTime={hour:Number(closeHour.value),minute:Numb
 if(mode==='schedule-open-close'){s.openTime={hour:Number(openHour.value),minute:Number(openMinute.value),ampm:openAmpm.value};s.closeTime={hour:Number(closeHour.value),minute:Number(closeMinute.value),ampm:closeAmpm.value}}
 if(currentZone==='global'){['zone1','zone2','zone3'].forEach(zk=>{zones[zk].settings=JSON.parse(JSON.stringify(s));zones[zk].auto=true;renderZone(zk)})}else{zones[currentZone].settings=s;renderZone(currentZone)}hideModal()}
 function attach(){
-  navHome.addEventListener('click',()=>showView('home'));
-  navGlobal.addEventListener('click',()=>{
-    const activeView = document.querySelector('.view.active')?.id;
-    if (activeView !== 'view-home') {
-      showView('home');
-      setTimeout(()=>toggleGlobal(true),0);
-    } else {
-      toggleGlobal(true);
-    }
-  });
+  navGlobal.addEventListener('click',()=>toggleGlobal(true));
   navSettings.addEventListener('click',()=>showView('settings'));
   closeGlobal.addEventListener('click',()=>toggleGlobal(false));
   globalBackdrop.addEventListener('click',()=>toggleGlobal(false));
