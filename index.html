@@ -242,7 +242,6 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
   <!-- Settings View -->
   <div id="view-settings" class="view">
     <div class="page-header">
-      <div class="back-btn" onclick="showView('home')"><i class="fa-solid fa-arrow-left"></i></div>
       <div class="page-title">Settings</div>
     </div>
     <div class="list-item" onclick="showView('power-log')">
@@ -430,6 +429,7 @@ const closeGlobal=document.getElementById('close-global')
 const navGlobal=document.getElementById('nav-global')
 const navSettings=document.getElementById('nav-settings')
 const logBody=document.getElementById('log-body')
+let navGlobalMode='control'
 
 function showView(viewId){
   // Close all modals before switching views
@@ -440,17 +440,27 @@ function showView(viewId){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+viewId).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const nav=document.getElementById('nav-'+(viewId==='power-log'?'settings':viewId));
+  const targetNavId = (viewId==='home') ? 'global' : (viewId==='power-log' ? 'settings' : viewId);
+  const nav=document.getElementById('nav-'+targetNavId);
   if(nav)nav.classList.add('active');
-  
-  // Hide bottom nav on settings and power-log views
+
+  // Keep bottom nav always visible
   const bottomNav = document.querySelector('.bottom-nav');
-  if (viewId === 'settings' || viewId === 'power-log') {
-    bottomNav.style.display = 'none';
+  bottomNav.style.display = 'flex';
+
+  // Switch "Control All" to "Home" on settings-related pages
+  const isSettingsRelated = (viewId === 'settings' || viewId === 'power-log');
+  navGlobalMode = isSettingsRelated ? 'home' : 'control';
+  const icon = navGlobal.querySelector('i');
+  const label = navGlobal.querySelector('span');
+  if (navGlobalMode === 'home') {
+    icon.className = 'fa-solid fa-house';
+    label.textContent = 'Home';
   } else {
-    bottomNav.style.display = 'flex';
+    icon.className = 'fa-solid fa-sliders';
+    label.textContent = 'Control All';
   }
-  
+
   if(viewId==='power-log')renderLogs();
 }
 
@@ -554,7 +564,13 @@ if(mode==='auto-on-close'){s.closeTime={hour:Number(closeHour.value),minute:Numb
 if(mode==='schedule-open-close'){s.openTime={hour:Number(openHour.value),minute:Number(openMinute.value),ampm:openAmpm.value};s.closeTime={hour:Number(closeHour.value),minute:Number(closeMinute.value),ampm:closeAmpm.value}}
 if(currentZone==='global'){['zone1','zone2','zone3'].forEach(zk=>{zones[zk].settings=JSON.parse(JSON.stringify(s));zones[zk].auto=true;renderZone(zk)})}else{zones[currentZone].settings=s;renderZone(currentZone)}hideModal()}
 function attach(){
-  navGlobal.addEventListener('click',()=>toggleGlobal(true));
+  navGlobal.addEventListener('click',()=>{
+    if (navGlobalMode === 'home') {
+      showView('home');
+    } else {
+      toggleGlobal(true);
+    }
+  });
   navSettings.addEventListener('click',()=>showView('settings'));
   closeGlobal.addEventListener('click',()=>toggleGlobal(false));
   globalBackdrop.addEventListener('click',()=>toggleGlobal(false));
