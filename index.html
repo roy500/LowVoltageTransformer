@@ -390,9 +390,9 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
     <div class="modal-inner">
       <div class="modal-title">Set Mode</div>
       <div class="tabs">
-        <div class="tab" data-mode="auto-light"><i class="fa-solid fa-rotate icon"></i><div class="tab-label">Photo Auto On/Off</div></div>
-        <div class="tab" data-mode="countdown"><i class="fa-solid fa-hourglass-half icon"></i><div class="tab-label">Photo Auto / Countdown</div></div>
-        <div class="tab" data-mode="auto-on-close"><i class="fa-solid fa-toggle-on icon"></i><div class="tab-label">Photo Auto / Timed </div></div>
+        <div class="tab" data-mode="auto-light"><i class="fa-solid fa-rotate icon"></i><div class="tab-label">Dusk To Dawn Auto</div></div>
+        <div class="tab" data-mode="countdown"><i class="fa-solid fa-hourglass-half icon"></i><div class="tab-label">Dusk On / Countdown</div></div>
+        <div class="tab" data-mode="auto-on-close"><i class="fa-solid fa-toggle-on icon"></i><div class="tab-label">Dusk On / Timed </div></div>
         <div class="tab" data-mode="schedule-open-close"><i class="fa-solid fa-calendar-days icon"></i><div class="tab-label">Timed On/Off</div></div>
       </div>
       <div class="fields">
@@ -419,7 +419,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
           </div>
         </div>
         <div class="field" id="field-days">
-          <div class="label">Days (Mon–Sun)</div>
+          <div class="label">Weekly Schedule (Mon–Sun)</div>
           <div class="chips" id="days-chips"></div>
         </div>
       </div>
@@ -520,7 +520,7 @@ function renderLogs(){
 function initHours(select){select.innerHTML='';for(let h=1;h<=12;h++){const o=document.createElement('option');o.value=h;o.textContent=h;select.appendChild(o)}}
 function initCountdown(){countdownRange.value=6;countdownDisplay.textContent=countdownRange.value+' hr'}
 function initMinutes(select){select.innerHTML='';for(let m=0;m<=59;m++){const o=document.createElement('option');o.value=m;o.textContent=(m<10?'0':'')+m;select.appendChild(o)}}
-function initDays(){const names=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];daysChips.innerHTML='';for(let i=1;i<=7;i++){const d=document.createElement('div');d.className='chip';d.dataset.day=i;d.textContent=names[i-1];d.addEventListener('click',()=>{d.classList.toggle('active');updateSaveEnabled()});daysChips.appendChild(d)}}
+function initDays(){const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];daysChips.innerHTML='';for(let i=1;i<=7;i++){const d=document.createElement('div');d.className='chip';d.dataset.day=i;d.textContent=names[i-1];d.addEventListener('click',()=>{d.classList.toggle('active');updateSaveEnabled()});daysChips.appendChild(d)}}
 function setDays(period){[...daysChips.children].forEach(c=>{c.classList.toggle('active',period.includes(Number(c.dataset.day)))})}
 function getSelectedDays(){return[...daysChips.children].filter(c=>c.classList.contains('active')).map(c=>Number(c.dataset.day))}
 function showModal(){modal.classList.add('show')}
@@ -535,9 +535,9 @@ function updateSaveEnabled(){if(!currentZone){saveBtn.disabled=true;return}const
 if(mode==='auto-on-close'){ok=ok&&closeHour.value&&closeMinute.value&&closeAmpm.value}
 if(mode==='schedule-open-close'){ok=ok&&openHour.value&&openMinute.value&&openAmpm.value&&closeHour.value&&closeMinute.value&&closeAmpm.value}
 saveBtn.disabled=!ok}
-function formatDays(period){const map={1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat',7:'Sun'};return period.map(d=>map[d]).join(', ')}
-function updateCapsules(zoneKey){const z=zones[zoneKey];const cap=document.getElementById(zoneKey+'-capsules');cap.innerHTML='';if(!z.settings.mode){cap.style.display='none';return}cap.style.display='flex';cap.classList.toggle('disabled',!z.auto);const m=document.createElement('div');m.className='capsule cap-mode';const md=document.createElement('div');md.className='dot';m.appendChild(md);const ml=document.createElement('div');ml.textContent=modeLabel(z.settings.mode);m.appendChild(ml);cap.appendChild(m);const t=document.createElement('div');t.className='capsule cap-time';const td=document.createElement('div');td.className='dot';t.appendChild(td);const tl=document.createElement('div');tl.textContent=timeLabel(z.settings);t.appendChild(tl);cap.appendChild(t);const d=document.createElement('div');d.className='capsule cap-days';const dd=document.createElement('div');dd.className='dot';d.appendChild(dd);const dl=document.createElement('div');dl.textContent='Days: '+formatDays(z.settings.period);d.appendChild(dl);cap.appendChild(d)}
-function modeLabel(mode){if(mode==='auto-light')return'Photo Auto On/Off';if(mode==='countdown')return'Photo Auto / Countdown';if(mode==='auto-on-close')return'Photo Auto / Timed ';if(mode==='schedule-open-close')return'Timed On/Off';return''}
+function formatDays(period){const map={1:'Sun',2:'Mon',3:'Tue',4:'Wed',5:'Thu',6:'Fri',7:'Sat'};return period.map(d=>map[d]).join(', ')}
+function updateCapsules(zoneKey){const z=zones[zoneKey];const cap=document.getElementById(zoneKey+'-capsules');cap.innerHTML='';if(!z.settings.mode){cap.style.display='none';return}cap.style.display='flex';cap.classList.toggle('disabled',!z.auto);const m=document.createElement('div');m.className='capsule cap-mode';const md=document.createElement('div');md.className='dot';m.appendChild(md);const ml=document.createElement('div');ml.textContent=modeLabel(z.settings.mode);m.appendChild(ml);cap.appendChild(m);const t=document.createElement('div');t.className='capsule cap-time';const td=document.createElement('div');td.className='dot';t.appendChild(td);const tl=document.createElement('div');tl.textContent=timeLabel(z.settings);t.appendChild(tl);cap.appendChild(t);const d=document.createElement('div');d.className='capsule cap-days';const dd=document.createElement('div');dd.className='dot';d.appendChild(dd);const dl=document.createElement('div');dl.textContent='Schedule: '+formatDays(z.settings.period);d.appendChild(dl);cap.appendChild(d)}
+function modeLabel(mode){if(mode==='auto-light')return'Dusk To Dawn Auto';if(mode==='countdown')return'Dusk On / Countdown';if(mode==='auto-on-close')return'Dusk On / Timed ';if(mode==='schedule-open-close')return'Timed On/Off';return''}
 function pad(n){return n<10?'0'+n:n}
 function timeLabel(s){if(s.mode==='countdown')return'Off: '+s.countdownHours+' hr';if(s.mode==='auto-on-close')return'Off Time: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;if(s.mode==='schedule-open-close')return'On: '+s.openTime.hour+':'+pad(s.openTime.minute)+' '+s.openTime.ampm+'  Off: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;return'Auto'}
 function renderZone(zoneKey){const z=zones[zoneKey];document.getElementById(zoneKey+'-name').textContent=z.name;const bulb=document.getElementById(zoneKey+'-bulb');const power=document.getElementById(zoneKey+'-power');const auto=document.getElementById(zoneKey+'-auto');const settingsBtn=document.getElementById(zoneKey+'-settings');const card=document.getElementById(zoneKey+'-card');power.checked=z.isOn;auto.checked=z.auto;settingsBtn.disabled=!z.auto;bulb.classList.toggle('on',z.isOn);card.classList.toggle('on',z.isOn);updateCapsules(zoneKey)}
