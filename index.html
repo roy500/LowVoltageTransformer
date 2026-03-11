@@ -54,7 +54,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
 .cap-time .dot{background:var(--warning)}
 .cap-days .dot{background:var(--accent-2)}
 .capsules.disabled .capsule{opacity:.5;filter:grayscale(.6)}
-.modal-backdrop{position:fixed;inset:0;background:rgba(8,12,22,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:110}
+.modal-backdrop{position:fixed;inset:0;background:rgba(8,12,22,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:40}
 .modal-backdrop.show{display:flex}
 .modal{width:420px;max-width:92vw;border-radius:16px;background:linear-gradient(180deg,var(--card) 0%,var(--card-alt) 100%);border:1px solid #2a3357;box-shadow:0 20px 50px rgba(0,0,0,.4)}
 .modal-inner{padding:18px}
@@ -80,48 +80,14 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
 .btn{padding:10px 14px;border-radius:10px;border:1px solid #2a3357;background:#1b2138;color:#c9d5ea;cursor:pointer}
 .btn.primary{background:linear-gradient(90deg,#c27a2b,#ffd27a);border-color:#ffd27a;color:#0f0d08}
 .btn.primary:disabled{opacity:.5;cursor:not-allowed}
-.footer{margin-top:18px;color:var(--muted);font-size:12px;padding-bottom:80px}
-/* Bottom Nav */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:rgba(21,27,45,0.9);backdrop-filter:blur(10px);border-top:1px solid #2a3357;display:flex;justify-content:space-around;align-items:center;z-index:100;max-width:430px;margin:0 auto}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);cursor:pointer;transition:all 0.2s;flex:1}
-.nav-item i{font-size:20px}
-.nav-item span{font-size:11px;font-weight:600}
-.nav-item.active{color:var(--accent)}
-
-/* Global Slide-up Panel */
-.global-panel-backdrop.show{display:block}
-.global-panel{position:fixed;bottom:-100%;left:0;right:0;background:var(--card);border-top:1px solid #2a3357;border-radius:20px 20px 0 0;padding:20px;z-index:91;transition:bottom 0.3s ease;max-width:430px;margin:0 auto}
-.global-panel.show{bottom:70px}
-.global-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.global-panel-title{font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px}
-
-/* View Management */
-.view{display:none}
-.view.active{display:block}
-
-/* Settings & Log Pages */
-.page-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.back-btn{width:36px;height:36px;border-radius:10px;background:#1b2138;border:1px solid #2a3357;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.page-title{font-size:18px;font-weight:700}
-.list-item{background:var(--card);border:1px solid #2a3357;border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;cursor:pointer}
-.list-item:active{background:#1b2138}
-.list-item .left{display:flex;align-items:center;gap:12px}
-.list-item .label{font-size:15px;font-weight:600;color:var(--text);margin:0}
-.list-item .right-content{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
-.log-table{width:100%;border-collapse:collapse}
-
-/* Sensor Mode Radio List */
-.sensor-option{display:flex;align-items:center;justify-content:space-between;padding:14px;background:#1b2138;border:1px solid #2a3357;border-radius:12px;margin-bottom:10px;cursor:pointer}
-.sensor-option.active{border-color:var(--accent);background:rgba(242,194,129,0.05)}
-.sensor-option input{display:none}
-.sensor-option .radio-circle{width:20px;height:20px;border-radius:50%;border:2px solid #2a3357;position:relative}
-.sensor-option.active .radio-circle{border-color:var(--accent)}
-.sensor-option.active .radio-circle:after{content:"";position:absolute;inset:4px;background:var(--accent);border-radius:50%}
-.log-table th{text-align:left;color:var(--muted);font-size:12px;padding:8px;border-bottom:1px solid #2a3357}
-.log-table td{padding:12px 8px;font-size:13px;border-bottom:1px solid #1b2138}
-.log-action.on{color:var(--accent)}
-.log-action.off{color:var(--danger)}
-
+.footer{margin-top:18px;color:var(--muted);font-size:12px}
+.all-setting-card{background:linear-gradient(180deg,var(--card) 0%,var(--card-alt) 100%);border:1px solid #2a3357;border-radius:14px;margin-bottom:14px;overflow:hidden}
+.all-setting-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:rgba(255,255,255,0.03)}
+.all-setting-header .title-box{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}
+.all-setting-header .toggle-icon{transition:transform 0.3s;color:var(--muted)}
+.all-setting-card.expanded .toggle-icon{transform:rotate(180deg)}
+.all-setting-body{padding:16px;display:none}
+.all-setting-card.expanded .all-setting-body{display:block}
 .global-actions{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .global-btn{padding:10px;border-radius:10px;border:1px solid #2a3357;background:#1b2138;color:#c9d5ea;cursor:pointer;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px}
 .global-btn:active{transform:scale(0.98)}
@@ -134,12 +100,120 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
 .global-btn.on-btn{background:rgba(242, 194, 129, 0.15);border-color:var(--accent);color:var(--accent)}
 .global-btn.off-btn{background:rgba(239, 68, 68, 0.15);border-color:var(--danger);color:#ff7e7e}
 @media (max-width:430px){.modal{width:94vw}}
+.fab{position:fixed;bottom:20px;right:20px;width:45px;height:45px;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer;z-index:100;opacity:.8;transition:all .2s}
+.fab:active{transform:scale(.95)}
+.view{display:none}.view.active{display:block}
+.page-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.back-btn{width:36px;height:36px;border-radius:10px;background:#1b2138;border:1px solid #2a3357;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.page-title{font-size:18px;font-weight:700}
+.list-item{background:var(--card);border:1px solid #2a3357;border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;cursor:pointer}
+.list-item:active{background:#1b2138}
+.list-item .left{display:flex;align-items:center;gap:12px}
+.list-item .label{font-size:15px;font-weight:600;color:var(--text);margin:0}
+.list-item .right-content{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
+.log-table{width:100%;border-collapse:collapse}
+.log-table th{text-align:left;color:var(--muted);font-size:12px;padding:8px;border-bottom:1px solid #2a3357}
+.log-table td{padding:12px 8px;font-size:13px;border-bottom:1px solid #1b2138}
+.log-action.on{color:var(--accent)}
+.log-action.off{color:var(--danger)}
+.sensor-option{display:flex;align-items:center;justify-content:space-between;padding:14px;background:#1b2138;border:1px solid #2a3357;border-radius:12px;margin-bottom:10px;cursor:pointer}
+.sensor-option.active{border-color:var(--accent);background:rgba(242,194,129,0.05)}
+.sensor-option input{display:none}
+.sensor-option .radio-circle{width:20px;height:20px;border-radius:50%;border:2px solid #2a3357;position:relative}
+.sensor-option.active .radio-circle{border-color:var(--accent)}
+.sensor-option.active .radio-circle:after{content:"";position:absolute;inset:4px;background:var(--accent);border-radius:50%}
+.fab{position:fixed;bottom:20px;right:20px;width:45px;height:45px;border-radius:50%;background:var(--accent);color:var(--bg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer;z-index:100;opacity:.8;transition:all .2s}
+.fab:active{transform:scale(.95)}
+.view{display:none}.view.active{display:block}
+.page-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.back-btn{width:36px;height:36px;border-radius:10px;background:#1b2138;border:1px solid #2a3357;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.page-title{font-size:18px;font-weight:700}
+.list-item{background:var(--card);border:1px solid #2a3357;border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;cursor:pointer}
+.list-item:active{background:#1b2138}
+.list-item .left{display:flex;align-items:center;gap:12px}
+.list-item .label{font-size:15px;font-weight:600;color:var(--text);margin:0}
+.list-item .right-content{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
+.log-table{width:100%;border-collapse:collapse}
+.log-table th{text-align:left;color:var(--muted);font-size:12px;padding:8px;border-bottom:1px solid #2a3357}
+.log-table td{padding:12px 8px;font-size:13px;border-bottom:1px solid #1b2138}
+.log-action.on{color:var(--accent)}
+.log-action.off{color:var(--danger)}
+.sensor-option{display:flex;align-items:center;justify-content:space-between;padding:14px;background:#1b2138;border:1px solid #2a3357;border-radius:12px;margin-bottom:10px;cursor:pointer}
+.sensor-option.active{border-color:var(--accent);background:rgba(242,194,129,0.05)}
+.sensor-option input{display:none}
+.sensor-option .radio-circle{width:20px;height:20px;border-radius:50%;border:2px solid #2a3357;position:relative}
+.sensor-option.active .radio-circle{border-color:var(--accent)}
+.sensor-option.active .radio-circle:after{content:"";position:absolute;inset:4px;background:var(--accent);border-radius:50%}
+/* 首页顶部栏样式 */
+.home-header{display:grid;grid-template-columns:48px 1fr 88px;align-items:center;gap:10px;margin-bottom:12px}
+.icon-btn{width:36px;height:36px;border-radius:10px;background:#1b2138;border:1px solid #2a3357;display:flex;align-items:center;justify-content:center;color:#c9d5ea;cursor:pointer}
+.icon-btn:active{transform:scale(0.98)}
+.header-title{display:flex;justify-content:center}
+.header-title .title-text{width:160px;text-align:center;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-actions{justify-self:end;display:flex;}
+.dots{display:flex;align-items:center;gap:4px}
+.dots .dot{display:block;border-radius:50%;background:#c9d5ea}
+.dots .dot.small{width:4px;height:4px;opacity:.9}
+.dots .dot.large{width:8px;height:8px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <!-- Home View -->
-  <div id="view-home" class="view active">
+<div class="wrap view active" id="view-home">
+    <div class="home-header">
+      <button class="icon-btn" aria-label="Back">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <div class="header-title">
+        <span class="title-text">DeviceName</span>
+      </div>
+      <div class="home-actions">
+        <button class="icon-btn" style="border-radius: 10px 0 0 10px;width: 47px;" aria-label="More">
+          <span class="dots" aria-hidden="true">
+            <span class="dot small"></span>
+            <span class="dot large"></span>
+            <span class="dot small"></span>
+          </span>
+        </button>
+        <button class="icon-btn" style="border-radius: 0 10px 10px 0;width: 47px;" aria-label="Settings" onclick="showView('settings')">
+          <i class="fa-solid fa-gear large"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="all-setting-card" id="all-setting-card">
+      <div class="all-setting-header" id="all-setting-toggle">
+        <div class="title-box">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Control All Zones</span>
+        </div>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+      </div>
+      <div class="all-setting-body">
+        <div class="global-actions">
+          <button class="global-btn on-btn" id="global-on">
+            <i class="fa-solid fa-power-off"></i>
+            ON
+          </button>
+          <button class="global-btn off-btn" id="global-off">
+            <i class="fa-solid fa-power-off"></i>
+            OFF
+          </button>
+          <button class="global-btn manual-btn" id="global-manual">
+            <i class="fa-solid fa-hand"></i>
+            Manual
+          </button>
+          <button class="global-btn auto-btn" id="global-auto">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Auto
+          </button>
+          <button class="global-btn mode-btn" id="global-mode">
+            <i class="fa-solid fa-gear"></i>
+            Mode
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="zones">
       <div class="zone-card" id="zone1-card">
         <div class="zone-inner">
@@ -236,7 +310,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
   </div>
 
   <!-- Settings View -->
-  <div id="view-settings" class="view">
+  <div id="view-settings" class="wrap view">
     <div class="page-header">
       <div class="back-btn" onclick="showView('home')"><i class="fa-solid fa-arrow-left"></i></div>
       <div class="page-title">Settings</div>
@@ -261,7 +335,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
   </div>
 
   <!-- Power Log View -->
-  <div id="view-power-log" class="view">
+  <div id="view-power-log" class="wrap view">
     <div class="page-header">
       <div class="back-btn" onclick="showView('settings')"><i class="fa-solid fa-arrow-left"></i></div>
       <div class="page-title">Power Log</div>
@@ -281,91 +355,44 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
       </table>
     </div>
   </div>
-</div>
 
-<!-- Global Panel -->
-<div class="global-panel-backdrop" id="global-backdrop"></div>
-<div class="global-panel" id="global-panel">
-  <div class="global-panel-header">
-    <div class="global-panel-title">
-      <i class="fa-solid fa-sliders"></i>
-      <span>Control All Zones</span>
-    </div>
-    <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--muted)" id="close-global"></i>
-  </div>
-  <div class="global-actions">
-    <button class="global-btn on-btn" id="global-on">
-      <i class="fa-solid fa-power-off"></i>
-      ON
-    </button>
-    <button class="global-btn off-btn" id="global-off">
-      <i class="fa-solid fa-power-off"></i>
-      OFF
-    </button>
-    <button class="global-btn manual-btn" id="global-manual">
-      <i class="fa-solid fa-hand"></i>
-      Manual
-    </button>
-    <button class="global-btn auto-btn" id="global-auto">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      Auto
-    </button>
-    <button class="global-btn mode-btn" id="global-mode">
-      <i class="fa-solid fa-gear"></i>
-      Mode
-    </button>
-  </div>
-</div>
-
-<!-- Bottom Navigation -->
-<div class="bottom-nav">
-  <div class="nav-item" id="nav-global">
-    <i class="fa-solid fa-sliders"></i>
-    <span>Control All</span>
-  </div>
-  <div class="nav-item" id="nav-settings">
-    <i class="fa-solid fa-gear"></i>
-    <span>Settings</span>
-  </div>
-</div>
-
-<!-- Sensor Modal -->
-<div class="modal-backdrop" id="sensor-modal">
-  <div class="modal">
-    <div class="modal-inner">
-      <div class="modal-title">Sensor Mode Setting</div>
-      <div class="fields">
-        <label class="sensor-option" onclick="selectSensor('light')">
-          <div class="label-box">
-            <span class="label">Light Sensor</span>
-          </div>
-          <input type="radio" name="sensor" id="sensor-light" value="light">
-          <div class="radio-circle"></div>
-        </label>
-        <label class="sensor-option" onclick="selectSensor('astro')">
-          <div class="label-box">
-            <span class="label">Astronomical</span>
-          </div>
-          <input type="radio" name="sensor" id="sensor-astro" value="astro">
-          <div class="radio-circle"></div>
-        </label>
-      </div>
-      <div class="modal-actions">
-        <button class="btn" onclick="closeSensorModal()">Cancel</button>
-        <button class="btn primary" onclick="saveSensorMode()">Save</button>
+  <!-- Sensor Modal -->
+  <div class="modal-backdrop" id="sensor-modal">
+    <div class="modal">
+      <div class="modal-inner">
+        <div class="modal-title">Sensor Mode Setting</div>
+        <div class="fields">
+          <label class="sensor-option" onclick="selectSensor('light')">
+            <div class="label-box">
+              <span class="label">Light Sensor</span>
+            </div>
+            <input type="radio" name="sensor" id="sensor-light" value="light">
+            <div class="radio-circle"></div>
+          </label>
+          <label class="sensor-option" onclick="selectSensor('astro')">
+            <div class="label-box">
+              <span class="label">Astronomical</span>
+            </div>
+            <input type="radio" name="sensor" id="sensor-astro" value="astro">
+            <div class="radio-circle"></div>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeSensorModal()">Cancel</button>
+          <button class="btn primary" onclick="saveSensorMode()">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <div class="modal-backdrop" id="modal">
   <div class="modal">
     <div class="modal-inner">
       <div class="modal-title">Set Mode</div>
       <div class="tabs">
-        <div class="tab" data-mode="auto-light"><i class="fa-solid fa-rotate icon"></i><div class="tab-label">Dusk to Dawn Auto</div></div>
-        <div class="tab" data-mode="countdown"><i class="fa-solid fa-hourglass-half icon"></i><div class="tab-label">Dusk ON / Countdown</div></div>
-        <div class="tab" data-mode="auto-on-close"><i class="fa-solid fa-toggle-on icon"></i><div class="tab-label">Dusk ON / Timed </div></div>
+        <div class="tab" data-mode="auto-light"><i class="fa-solid fa-rotate icon"></i><div class="tab-label">Photo Auto On/Off</div></div>
+        <div class="tab" data-mode="countdown"><i class="fa-solid fa-hourglass-half icon"></i><div class="tab-label">Photo Auto / Countdown</div></div>
+        <div class="tab" data-mode="auto-on-close"><i class="fa-solid fa-toggle-on icon"></i><div class="tab-label">Photo Auto / Timed </div></div>
         <div class="tab" data-mode="schedule-open-close"><i class="fa-solid fa-calendar-days icon"></i><div class="tab-label">Timed On/Off</div></div>
       </div>
       <div class="fields">
@@ -392,7 +419,7 @@ body{margin:0;background:radial-gradient(1200px 600px at 70% -200px,#23304f 0%,#
           </div>
         </div>
         <div class="field" id="field-days">
-          <div class="label">Weekly Schedule</div>
+          <div class="label">Days (Mon–Sun)</div>
           <div class="chips" id="days-chips"></div>
         </div>
       </div>
@@ -411,7 +438,11 @@ let powerLogs=[
   {zone:"ZONE1",action:"ON",time:"10:24:15"},
   {zone:"ZONE2",action:"OFF",time:"09:15:30"},
   {zone:"ZONE3",action:"ON",time:"08:05:12"},
-  {zone:"ZONE1",action:"OFF",time:"07:30:45"}
+  {zone:"ZONE1",action:"OFF",time:"07:30:45"},
+  {zone:"ZONE2",action:"ON",time:"06:45:00"},
+  {zone:"ZONE3",action:"OFF",time:"05:55:10"},
+  {zone:"ZONE1",action:"ON",time:"04:30:00"},
+  {zone:"ZONE2",action:"OFF",time:"03:15:20"}
 ]
 let sensorMode='light' // light or astro
 const tabs=[...document.querySelectorAll('.tab')]
@@ -420,33 +451,32 @@ const sensorModal=document.getElementById('sensor-modal')
 const sensorModeText=document.getElementById('sensor-mode-text')
 const saveBtn=document.getElementById('save')
 const cancelBtn=document.getElementById('cancel')
-const globalPanel=document.getElementById('global-panel')
-const globalBackdrop=document.getElementById('global-backdrop')
-const closeGlobal=document.getElementById('close-global')
-const navGlobal=document.getElementById('nav-global')
-const navSettings=document.getElementById('nav-settings')
+const allSettingCard=document.getElementById('all-setting-card')
+const allSettingToggle=document.getElementById('all-setting-toggle')
+const globalBtns=[...document.querySelectorAll('.global-btn')]
+const globalManual=document.getElementById('global-manual')
+const globalAuto=document.getElementById('global-auto')
+const globalOn=document.getElementById('global-on')
+const globalOff=document.getElementById('global-off')
+const globalMode=document.getElementById('global-mode')
+const fieldCountdown=document.getElementById('field-countdown')
+const fieldOpenClose=document.getElementById('field-open-close')
+const rowOpen=document.getElementById('row-open')
+const rowClose=document.getElementById('row-close')
+const daysChips=document.getElementById('days-chips')
+const countdownRange=document.getElementById('countdown-range')
+const countdownDisplay=document.getElementById('countdown-display')
+const closeHour=document.getElementById('close-hour')
+const closeMinute=document.getElementById('close-minute')
+const closeAmpm=document.getElementById('close-ampm')
+const openHour=document.getElementById('open-hour')
+const openMinute=document.getElementById('open-minute')
+const openAmpm=document.getElementById('open-ampm')
 const logBody=document.getElementById('log-body')
 
 function showView(viewId){
-  // Close all modals before switching views
-  hideModal();
-  closeSensorModal();
-  toggleGlobal(false);
-
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+viewId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const nav=document.getElementById('nav-'+(viewId==='power-log'?'settings':viewId));
-  if(nav)nav.classList.add('active');
-  
-  // Hide bottom nav on settings and power-log views
-  const bottomNav = document.querySelector('.bottom-nav');
-  if (viewId === 'settings' || viewId === 'power-log') {
-    bottomNav.style.display = 'none';
-  } else {
-    bottomNav.style.display = 'flex';
-  }
-  
   if(viewId==='power-log')renderLogs();
 }
 
@@ -477,18 +507,6 @@ function saveSensorMode(){
   closeSensorModal();
 }
 
-function toggleGlobal(show){
-  globalPanel.classList.toggle('show',show);
-  globalBackdrop.classList.toggle('show',show);
-}
-
-function addLog(zoneKey,action){
-  const now=new Date();
-  const timeStr=now.getHours()+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
-  powerLogs.unshift({zone:zones[zoneKey].name,action:action?'ON':'OFF',time:timeStr});
-  if(powerLogs.length>50)powerLogs.pop();
-}
-
 function renderLogs(){
   logBody.innerHTML=powerLogs.map(l=>`
     <tr>
@@ -499,28 +517,10 @@ function renderLogs(){
   `).join('') || '<tr><td colspan="3" style="text-align:center;padding:20px;color:var(--muted)">No logs yet</td></tr>';
 }
 
-const globalManual=document.getElementById('global-manual')
-const globalAuto=document.getElementById('global-auto')
-const globalOn=document.getElementById('global-on')
-const globalOff=document.getElementById('global-off')
-const globalMode=document.getElementById('global-mode')
-  const fieldCountdown=document.getElementById('field-countdown')
-const fieldOpenClose=document.getElementById('field-open-close')
-const rowOpen=document.getElementById('row-open')
-const rowClose=document.getElementById('row-close')
-const daysChips=document.getElementById('days-chips')
-const countdownRange=document.getElementById('countdown-range')
-const countdownDisplay=document.getElementById('countdown-display')
-const closeHour=document.getElementById('close-hour')
-const closeMinute=document.getElementById('close-minute')
-const closeAmpm=document.getElementById('close-ampm')
-const openHour=document.getElementById('open-hour')
-const openMinute=document.getElementById('open-minute')
-const openAmpm=document.getElementById('open-ampm')
 function initHours(select){select.innerHTML='';for(let h=1;h<=12;h++){const o=document.createElement('option');o.value=h;o.textContent=h;select.appendChild(o)}}
 function initCountdown(){countdownRange.value=6;countdownDisplay.textContent=countdownRange.value+' hr'}
 function initMinutes(select){select.innerHTML='';for(let m=0;m<=59;m++){const o=document.createElement('option');o.value=m;o.textContent=(m<10?'0':'')+m;select.appendChild(o)}}
-function initDays(){const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];daysChips.innerHTML='';for(let i=0;i<=6;i++){const d=document.createElement('div');d.className='chip';d.dataset.day=i===0?7:i;d.textContent=names[i];d.addEventListener('click',()=>{d.classList.toggle('active');updateSaveEnabled()});daysChips.appendChild(d)}}
+function initDays(){const names=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];daysChips.innerHTML='';for(let i=1;i<=7;i++){const d=document.createElement('div');d.className='chip';d.dataset.day=i;d.textContent=names[i-1];d.addEventListener('click',()=>{d.classList.toggle('active');updateSaveEnabled()});daysChips.appendChild(d)}}
 function setDays(period){[...daysChips.children].forEach(c=>{c.classList.toggle('active',period.includes(Number(c.dataset.day)))})}
 function getSelectedDays(){return[...daysChips.children].filter(c=>c.classList.contains('active')).map(c=>Number(c.dataset.day))}
 function showModal(){modal.classList.add('show')}
@@ -535,11 +535,11 @@ function updateSaveEnabled(){if(!currentZone){saveBtn.disabled=true;return}const
 if(mode==='auto-on-close'){ok=ok&&closeHour.value&&closeMinute.value&&closeAmpm.value}
 if(mode==='schedule-open-close'){ok=ok&&openHour.value&&openMinute.value&&openAmpm.value&&closeHour.value&&closeMinute.value&&closeAmpm.value}
 saveBtn.disabled=!ok}
-function formatDays(period){const map={7:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};return period.map(d=>map[d]).join(', ')}
-function updateCapsules(zoneKey){const z=zones[zoneKey];const cap=document.getElementById(zoneKey+'-capsules');cap.innerHTML='';if(!z.settings.mode){cap.style.display='none';return}cap.style.display='flex';cap.classList.toggle('disabled',!z.auto);const m=document.createElement('div');m.className='capsule cap-mode';const md=document.createElement('div');md.className='dot';m.appendChild(md);const ml=document.createElement('div');ml.textContent=modeLabel(z.settings.mode);m.appendChild(ml);cap.appendChild(m);const t=document.createElement('div');t.className='capsule cap-time';const td=document.createElement('div');td.className='dot';t.appendChild(td);const tl=document.createElement('div');tl.textContent=timeLabel(z.settings);t.appendChild(tl);cap.appendChild(t);const d=document.createElement('div');d.className='capsule cap-days';const dd=document.createElement('div');dd.className='dot';d.appendChild(dd);const dl=document.createElement('div');dl.textContent='Schedule: '+formatDays(z.settings.period);d.appendChild(dl);cap.appendChild(d)}
-function modeLabel(mode){if(mode==='auto-light')return'Dusk to Dawn Auto';if(mode==='countdown')return'Dusk ON / Countdown';if(mode==='auto-on-close')return'Dusk ON / Timed ';if(mode==='schedule-open-close')return'Timed On/Off';return''}
+function formatDays(period){const map={1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat',7:'Sun'};return period.map(d=>map[d]).join(', ')}
+function updateCapsules(zoneKey){const z=zones[zoneKey];const cap=document.getElementById(zoneKey+'-capsules');cap.innerHTML='';if(!z.settings.mode){cap.style.display='none';return}cap.style.display='flex';cap.classList.toggle('disabled',!z.auto);const m=document.createElement('div');m.className='capsule cap-mode';const md=document.createElement('div');md.className='dot';m.appendChild(md);const ml=document.createElement('div');ml.textContent=modeLabel(z.settings.mode);m.appendChild(ml);cap.appendChild(m);const t=document.createElement('div');t.className='capsule cap-time';const td=document.createElement('div');td.className='dot';t.appendChild(td);const tl=document.createElement('div');tl.textContent=timeLabel(z.settings);t.appendChild(tl);cap.appendChild(t);const d=document.createElement('div');d.className='capsule cap-days';const dd=document.createElement('div');dd.className='dot';d.appendChild(dd);const dl=document.createElement('div');dl.textContent='Days: '+formatDays(z.settings.period);d.appendChild(dl);cap.appendChild(d)}
+function modeLabel(mode){if(mode==='auto-light')return'Photo Auto On/Off';if(mode==='countdown')return'Photo Auto / Countdown';if(mode==='auto-on-close')return'Photo Auto / Timed ';if(mode==='schedule-open-close')return'Timed On/Off';return''}
 function pad(n){return n<10?'0'+n:n}
-function timeLabel(s){if(s.mode==='countdown')return'Off: '+s.countdownHours+' hr';if(s.mode==='auto-on-close')return'Off: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;if(s.mode==='schedule-open-close')return'On: '+s.openTime.hour+':'+pad(s.openTime.minute)+' '+s.openTime.ampm+'  Off: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;return'Auto'}
+function timeLabel(s){if(s.mode==='countdown')return'Off: '+s.countdownHours+' hr';if(s.mode==='auto-on-close')return'Off Time: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;if(s.mode==='schedule-open-close')return'On: '+s.openTime.hour+':'+pad(s.openTime.minute)+' '+s.openTime.ampm+'  Off: '+s.closeTime.hour+':'+pad(s.closeTime.minute)+' '+s.closeTime.ampm;return'Auto'}
 function renderZone(zoneKey){const z=zones[zoneKey];document.getElementById(zoneKey+'-name').textContent=z.name;const bulb=document.getElementById(zoneKey+'-bulb');const power=document.getElementById(zoneKey+'-power');const auto=document.getElementById(zoneKey+'-auto');const settingsBtn=document.getElementById(zoneKey+'-settings');const card=document.getElementById(zoneKey+'-card');power.checked=z.isOn;auto.checked=z.auto;settingsBtn.disabled=!z.auto;bulb.classList.toggle('on',z.isOn);card.classList.toggle('on',z.isOn);updateCapsules(zoneKey)}
 function openSettings(zoneKey){currentZone=zoneKey;const z=zones[zoneKey];setDays(z.settings.period||[]);let mode=z.settings.mode||'auto-light';setActiveTab(mode);countdownRange.value=z.settings.countdownHours||6;countdownDisplay.textContent=countdownRange.value+' hr'
  if(z.settings.closeTime){closeHour.value=z.settings.closeTime.hour;closeMinute.value=z.settings.closeTime.minute;closeAmpm.value=z.settings.closeTime.ampm}else{closeHour.value=6;closeMinute.value=0;closeAmpm.value='PM'}
@@ -550,53 +550,39 @@ if(mode==='auto-on-close'){s.closeTime={hour:Number(closeHour.value),minute:Numb
 if(mode==='schedule-open-close'){s.openTime={hour:Number(openHour.value),minute:Number(openMinute.value),ampm:openAmpm.value};s.closeTime={hour:Number(closeHour.value),minute:Number(closeMinute.value),ampm:closeAmpm.value}}
 if(currentZone==='global'){['zone1','zone2','zone3'].forEach(zk=>{zones[zk].settings=JSON.parse(JSON.stringify(s));zones[zk].auto=true;renderZone(zk)})}else{zones[currentZone].settings=s;renderZone(currentZone)}hideModal()}
 function attach(){
-  navGlobal.addEventListener('click',()=>toggleGlobal(true));
-  navSettings.addEventListener('click',()=>showView('settings'));
-  closeGlobal.addEventListener('click',()=>toggleGlobal(false));
-  globalBackdrop.addEventListener('click',()=>toggleGlobal(false));
-
+  allSettingToggle.addEventListener('click',()=>{allSettingCard.classList.toggle('expanded')});
   function getSelectedZones(){return ['zone1','zone2','zone3']}
   globalManual.addEventListener('click',()=>{getSelectedZones().forEach(z=>{zones[z].auto=false;renderZone(z)})});
-  globalOn.addEventListener('click',()=>{getSelectedZones().forEach(z=>{zones[z].isOn=true;renderZone(z);addLog(z,true)})});
-  globalOff.addEventListener('click',()=>{getSelectedZones().forEach(z=>{zones[z].isOn=false;renderZone(z);addLog(z,false)})});
-  globalAuto.addEventListener('click',()=>{
-    getSelectedZones().forEach(zk => {
-      zones[zk].auto = true;
-      if (!zones[zk].settings.mode) {
-        zones[zk].settings = { mode: 'auto-light', period: [1,2,3,4,5,6,7] };
-      }
-      renderZone(zk);
-    });
-  });
-  globalMode.addEventListener('click',()=>{
-    currentZone='global';
-    const z={settings:{mode:'auto-light',period:[1,2,3,4,5,6,7]}};
-    setDays(z.settings.period);
-    setActiveTab(z.settings.mode);
-    countdownRange.value=6;
-    countdownDisplay.textContent='6 小时';
-    closeHour.value=6;
-    closeMinute.value=0;
-    closeAmpm.value='PM';
-    openHour.value=6;
-    openMinute.value=0;
-    openAmpm.value='AM';
-    showModal();
-    updateSaveEnabled()
-  });
+  globalOn.addEventListener('click',()=>{getSelectedZones().forEach(z=>{zones[z].isOn=true;renderZone(z)})});
+   globalOff.addEventListener('click',()=>{getSelectedZones().forEach(z=>{zones[z].isOn=false;renderZone(z)})});
+   globalAuto.addEventListener('click',()=>{
+     getSelectedZones().forEach(zk => {
+       zones[zk].auto = true;
+       if (!zones[zk].settings.mode) {
+         zones[zk].settings = { mode: 'auto-light', period: [1,2,3,4,5,6,7] };
+       }
+       renderZone(zk);
+     });
+   });
+   globalMode.addEventListener('click',()=>{
+     currentZone='global';
+     const z={settings:{mode:'auto-light',period:[1,2,3,4,5,6,7]}};
+     setDays(z.settings.period);
+     setActiveTab(z.settings.mode);
+     countdownRange.value=6;
+     countdownDisplay.textContent='6 小时';
+     closeHour.value=6;
+     closeMinute.value=0;
+     closeAmpm.value='PM';
+     openHour.value=6;
+     openMinute.value=0;
+     openAmpm.value='AM';
+     showModal();
+     updateSaveEnabled()
+   });
 
-  document.querySelectorAll('.edit-name').forEach(b=>{b.addEventListener('click',()=>{const z=b.dataset.zone;document.getElementById(z+'-edit').classList.add('show');document.getElementById(z+'-input').value=zones[z].name;document.getElementById(z+'-input').focus()})});
-  document.querySelectorAll('.edit-save').forEach(b=>{b.addEventListener('click',()=>{const z=b.dataset.zone;const v=document.getElementById(z+'-input').value.trim();if(v){zones[z].name=v;renderZone(z)}document.getElementById(z+'-edit').classList.remove('show')})});
-  document.querySelectorAll('.edit-cancel').forEach(b=>{b.addEventListener('click',()=>{document.getElementById(b.dataset.zone+'-edit').classList.remove('show')})});
-  document.querySelectorAll('.power-toggle').forEach(t=>{t.addEventListener('change',()=>{const z=t.dataset.zone;zones[z].isOn=t.checked;renderZone(z);addLog(z,t.checked)})});
-  document.querySelectorAll('.auto-toggle').forEach(t=>{t.addEventListener('change',()=>{const z=t.dataset.zone;zones[z].auto=t.checked;renderZone(z);if(t.checked && !zones[z].settings.mode){openSettings(z)}})});
-  document.querySelectorAll('.settings-btn').forEach(b=>{b.addEventListener('click',()=>openSettings(b.dataset.zone))});
-  tabs.forEach(tab=>tab.addEventListener('click',()=>setActiveTab(tab.dataset.mode)));
-  countdownRange.addEventListener('input',()=>{countdownDisplay.textContent=countdownRange.value+' 小时';updateSaveEnabled()});
-  [closeHour,closeMinute,closeAmpm,openHour,openMinute,openAmpm].forEach(s=>s.addEventListener('change',updateSaveEnabled));
-  cancelBtn.addEventListener('click',hideModal);
-  saveBtn.addEventListener('click',saveSettings)
-}
+  document.querySelectorAll('.edit-name').forEach(b=>{b.addEventListener('click',()=>{const z=b.dataset.zone;document.getElementById(z+'-edit').classList.add('show');document.getElementById(z+'-input').value=zones[z].name;document.getElementById(z+'-input').focus()})});document.querySelectorAll('.edit-save').forEach(b=>{b.addEventListener('click',()=>{const z=b.dataset.zone;const v=document.getElementById(z+'-input').value.trim();if(v){zones[z].name=v;renderZone(z)}document.getElementById(z+'-edit').classList.remove('show')})});document.querySelectorAll('.edit-cancel').forEach(b=>{b.addEventListener('click',()=>{document.getElementById(b.dataset.zone+'-edit').classList.remove('show')})});document.querySelectorAll('.power-toggle').forEach(t=>{t.addEventListener('change',()=>{const z=t.dataset.zone;zones[z].isOn=t.checked;renderZone(z)})});document.querySelectorAll('.auto-toggle').forEach(t=>{t.addEventListener('change',()=>{const z=t.dataset.zone;zones[z].auto=t.checked;renderZone(z);if(t.checked && !zones[z].settings.mode){openSettings(z)}})});document.querySelectorAll('.settings-btn').forEach(b=>{b.addEventListener('click',()=>openSettings(b.dataset.zone))});tabs.forEach(tab=>tab.addEventListener('click',()=>setActiveTab(tab.dataset.mode)));countdownRange.addEventListener('input',()=>{countdownDisplay.textContent=countdownRange.value+' 小时';updateSaveEnabled()});[closeHour,closeMinute,closeAmpm,openHour,openMinute,openAmpm].forEach(s=>s.addEventListener('change',updateSaveEnabled));cancelBtn.addEventListener('click',hideModal);saveBtn.addEventListener('click',saveSettings)}
+function boot(){initHours(closeHour);initHours(openHour);initMinutes(closeMinute);initMinutes(openMinute);initCountdown();initDays();renderZone('zone1');renderZone('zone2');renderZone('zone3');attach()}
 function boot(){initHours(closeHour);initHours(openHour);initMinutes(closeMinute);initMinutes(openMinute);initCountdown();initDays();renderZone('zone1');renderZone('zone2');renderZone('zone3');attach()}
 boot()
 </script>
